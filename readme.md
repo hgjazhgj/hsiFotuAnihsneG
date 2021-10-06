@@ -22,6 +22,8 @@
 
 
 ## 更新日志
+## 2021/10/06
+偷偷恢复一个自动打包,再观望一下看看形势  
 ## 2021/09/25
 本项目在2021年9月24日被GitHub以`using GitHub as a platform for propagating abuse on other platforms`理由关闭  
 经过一晚上的复盘,我将原因定位到了我写的**英文readme**上,以至于GitHub对其进行了NLP分析  
