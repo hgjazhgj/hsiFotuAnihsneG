@@ -2,13 +2,12 @@
 
 **本项目在2021年9月24日被GitHub删了,现将其恢复**  
 
-本项目的可执行文件已发布至[原神黑科技工具箱](https://ys.minigg.cn/#/pages/demo/autotool/autotool),那里还有很多大佬的作品  
 热烈庆祝本项目在2021年9月18日获得100star!  
 ![100star](doc/100star.png)  
 
 非国服玩家需修改config.json中的"title"为你自己的原神窗口标题  
 # 原神智能钓鱼
-大幅延长你的鼠标寿命,视频演示: [这个视频被举报下架了](https://www.bilibili.com/video/BV1qg411V7KP)  
+大幅延长你的鼠标寿命  
 先启动原神,然后以管理员身份运行本程序,程序就会在检测到鱼上钩时智能收杆  
 这个程序只能帮你收杆,不能帮你找鱼/换饵/放杆  
 ![demo](doc/demo.gif)  
