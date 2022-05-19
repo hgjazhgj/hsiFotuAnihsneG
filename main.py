@@ -5,6 +5,7 @@ import time
 import traceback
 
 import cv2
+import ctypes
 import numpy
 import win32api
 import win32con
@@ -12,13 +13,10 @@ import win32gui
 import win32print
 import win32ui
 
+GetDpiForWindow=ctypes.windll.user32.GetDpiForWindow
 
 class Window:
-    def __init__(self, name, cls=None, scale=0):
-        hDesktopDC = win32gui.GetDC(0)
-        self.scale = win32print.GetDeviceCaps(hDesktopDC, win32con.DESKTOPHORZRES) \
-            / win32print.GetDeviceCaps(hDesktopDC, win32con.HORZRES) if scale == 0 else scale
-        win32gui.ReleaseDC(None, hDesktopDC)
+    def __init__(self, name, cls=None):
         self.hWnd = win32gui.FindWindow(cls, name)
         assert self.hWnd
         self.hWndDC = win32gui.GetDC(self.hWnd)
@@ -26,11 +24,11 @@ class Window:
         self.hMemDc = self.hMfcDc.CreateCompatibleDC()
 
     def capture(self):
-        self.width, self.height = [round(i*self.scale)for i in win32gui.GetClientRect(self.hWnd)[2:]]
+        self.width, self.height = [i*GetDpiForWindow(self.hWnd)//96 for i in win32gui.GetClientRect(self.hWnd)[2:]]
         hBmp = win32ui.CreateBitmap()
         hBmp.CreateCompatibleBitmap(self.hMfcDc, self.width, self.height)
         self.hMemDc.SelectObject(hBmp)
-        self.hMemDc.BitBlt((0, 0), (self.width, self.height),self.hMfcDc, (0, 0), win32con.SRCCOPY)
+        self.hMemDc.BitBlt((0, 0), (self.width, self.height), self.hMfcDc, (0, 0), win32con.SRCCOPY)
         result = numpy.frombuffer(hBmp.GetBitmapBits(True), dtype=numpy.uint8).reshape(self.height, self.width, 4)
         win32gui.DeleteObject(hBmp.GetHandle())
         return result
@@ -107,10 +105,10 @@ if __name__ == '__main__':
 
         with open('config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
-        window = Window(config['title'], 'UnityWndClass', config["winScale"])
+        window = Window(config['title'], 'UnityWndClass')
         Check.setup(window.capture, config['readyRect'], config['posRect'])
         count = 0
-        print('initialized', hex(window.hWnd), f'{window.scale:.2f}', win32gui.GetWindowPlacement(window.hWnd))
+        print('initialized', hex(window.hWnd), f'{GetDpiForWindow(window.hWnd)/96:.2f}', win32gui.GetWindowPlacement(window.hWnd))
 
         while True:
             lastCapture = 0

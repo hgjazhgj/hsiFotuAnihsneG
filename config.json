@@ -3,17 +3,15 @@
     "captureKey": 19,
     "showKey": 0,
     "clumsyMode": false,
-    "winScale": 0,
     "title": "原神",
     "readyRect": [1020, 639, 1110, 682],
     "posRect": [470, 44, 810, 130],
     "//": {
-        "*key": "Virtual key code, see https://docs.microsoft.com/en-US/windows/win32/inputdev/virtual-key-codes, Notice that you cannot write hex or oct nums in json",
+        "*Key": "Virtual key code, see https://docs.microsoft.com/en-US/windows/win32/inputdev/virtual-key-codes, Notice that you cannot write hex or oct nums in json",
         "startKey": "Press this key to start image recognition, 0 for start without key pressed",
         "captureKey": "When waiting for startKey, press captureKey will save a screenshot of Genshin Window to the program dir",
         "showKey": "When waiting for startKey, press showKey will show a screenshot of Genshin Window",
         "clumsyMode": "Make this program not perform so well",
-        "winScale": "Windows high DPI scale factor, 0 for automatic acquisition, only needed when the DPI of the main monitor and the game window are different",
         "title": "The Genshin window title",
         "*Rect": "The X-Y coord of the UPPER-LEFT and LOWER-RIGHT point as 720p"
     }
