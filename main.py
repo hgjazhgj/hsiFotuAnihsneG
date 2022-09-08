@@ -10,10 +10,9 @@ import numpy
 import win32api
 import win32con
 import win32gui
-import win32print
 import win32ui
 
-GetDpiForWindow=ctypes.windll.user32.GetDpiForWindow
+ctypes.windll.user32.SetProcessDpiAwarenessContext(ctypes.c_void_p(-4))
 
 class Window:
     def __init__(self, name, cls=None):
@@ -24,7 +23,7 @@ class Window:
         self.hMemDc = self.hMfcDc.CreateCompatibleDC()
 
     def capture(self):
-        self.width, self.height = [i*GetDpiForWindow(self.hWnd)//96 for i in win32gui.GetClientRect(self.hWnd)[2:]]
+        self.width, self.height = win32gui.GetClientRect(self.hWnd)[2:]
         hBmp = win32ui.CreateBitmap()
         hBmp.CreateCompatibleBitmap(self.hMfcDc, self.width, self.height)
         self.hMemDc.SelectObject(hBmp)
@@ -72,7 +71,7 @@ class Check:
             self.im = numpy.zeros((720, 1280, 4), dtype=numpy.uint8)
 
     def wrapAlpha(self, im):
-        im, alpha = im[..., :3]>>4, im[..., 3] >> 4
+        im, alpha = im[..., :3]>>4, im[..., 3]>>4
         for i in range(3):
             im[..., i] *= alpha
         return im
@@ -101,14 +100,14 @@ class Check:
 
 if __name__ == '__main__':
     try:
-        print('GenshinAutoFish v2.3.0')
+        print('GenshinAutoFish v2.4.1')
 
         with open('config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
         window = Window(config['title'], 'UnityWndClass')
         Check.setup(window.capture, config['readyRect'], config['posRect'])
         count = 0
-        print('initialized', hex(window.hWnd), f'{GetDpiForWindow(window.hWnd)/96:.2f}', win32gui.GetWindowPlacement(window.hWnd))
+        print('initialized', hex(window.hWnd), win32gui.GetWindowPlacement(window.hWnd))
 
         while True:
             lastCapture = 0
@@ -120,7 +119,7 @@ if __name__ == '__main__':
                         print('captured')
                         lastCapture = time.time()
                     if config['showKey'] and win32api.GetKeyState(config['showKey']) < 0:
-                        Check.show()
+                        Check().show()
             print('wait')
 
             while win32gui.GetForegroundWindow() != window.hWnd or not Check().isReady():

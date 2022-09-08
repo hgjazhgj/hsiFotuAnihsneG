@@ -5,7 +5,7 @@
     "clumsyMode": false,
     "title": "原神",
     "readyRect": [1020, 639, 1110, 682],
-    "posRect": [470, 44, 810, 130],
+    "posRect": [470, 44, 810, 135],
     "//": {
         "*Key": "Virtual key code, see https://docs.microsoft.com/en-US/windows/win32/inputdev/virtual-key-codes, Notice that you cannot write hex or oct nums in json",
         "startKey": "Press this key to start image recognition, 0 for start without key pressed",
