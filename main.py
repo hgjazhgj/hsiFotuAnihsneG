@@ -100,7 +100,7 @@ class Check:
 
 if __name__ == '__main__':
     try:
-        print('GenshinAutoFish v2.4.1')
+        print('GenshinAutoFish v2.5.0')
 
         with open('config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
