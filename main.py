@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import sys
 import time
 import traceback
 
@@ -98,9 +99,9 @@ class Check:
         cv2.destroyAllWindows()
 
 
-if __name__ == '__main__':
+def main():
     try:
-        print('GenshinAutoFish v2.5.0')
+        print('GenshinAutoFish v2.5.1')
 
         with open('config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
@@ -156,3 +157,9 @@ if __name__ == '__main__':
     except BaseException:
         traceback.print_exc()
         os.system('pause')
+
+if __name__ == '__main__':
+    if ctypes.windll.shell32.IsUserAnAdmin():
+        main()
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)

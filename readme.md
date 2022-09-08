@@ -20,7 +20,9 @@
 如果你觉得这个程序的表现太好了,首先来点一个star,然后可以考虑在config.json中打开笨拙模式开关  
 
 
-## Add日志
+## 更新日志
+## 2022/09/08 v2.5.1
+Add:Run as Admin at startup  
 ## 2022/09/08 v2.5.0
 Add:portable Installer  
 ## 2022/09/06 v2.4.1
